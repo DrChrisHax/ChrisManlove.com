@@ -1,0 +1,136 @@
+[
+  {
+    "id": "post-quantum-vpn",
+    "name": "Quantum Edge: Post-Quantum VPN",
+    "url": "https://github.com/DrChrisHax/PostQuantumVPN",
+    "start": "Jan 2026",
+    "end": "May 2026",
+    "tech": ["C++23", "Cryptography", "Linux Networking", "OpenSSL"],
+    "bullets": [
+      "Led a 4-person team building a VPN with a hybrid ML-KEM + X25519 handshake and epoll event loop; throughput competitive with WireGuard",
+      "Composed a unified handshake pipeline from ML-KEM-768, X25519, ChaCha20-Poly1305, BLAKE3, and HKDF via OpenSSL",
+      "Authored a unit-test suite spanning crypto and networking layers to enable rapid iteration"
+    ]
+  },
+  {
+    "id": "miscellaneous-cpp",
+    "name": "miscellaneous_cpp",
+    "url": "https://github.com/DrChrisHax/miscellaneous_cpp",
+    "start": "Dec 2025",
+    "end": null,
+    "tech": ["C++23"],
+    "bullets": [
+      "Reference collection of C++23 code written while reading LearnCPP.com, books, and articles",
+      "Includes a fully templated Fraction class using C++20 concepts and the spaceship operator"
+    ]
+  },
+  {
+    "id": "cpp-project-template",
+    "name": "C++ Project Template",
+    "url": "https://github.com/DrChrisHax/Cpp-Project-Template",
+    "start": "Dec 2025",
+    "end": null,
+    "tech": ["C++23", "Make"],
+    "bullets": [
+      "C++23 project template following the App-Core architecture model, compiled with a Makefile",
+      "Includes a test runner; designed to eliminate boilerplate when starting new C++ projects"
+    ]
+  },
+  {
+    "id": "proxy-server",
+    "name": "SOCKS4 Proxy Server",
+    "url": "https://github.com/DrChrisHax/Proxy_Server",
+    "start": "Sep 2025",
+    "end": "Dec 2025",
+    "tech": ["C++20", "POSIX Sockets", "epoll"],
+    "bullets": [
+      "epoll-based event loop supporting 100,000+ concurrent connections with zero third-party dependencies",
+      "Implemented DNS resolution, a custom LRU cache, and SHA-256 using only the C++ standard library",
+      "Led a 5-person team; earned 100% on the assignment"
+    ]
+  },
+  {
+    "id": "handwriting-nn",
+    "name": "Handwriting Neural Network",
+    "url": "https://github.com/DrChrisHax/HandwritingNeuralNetwork",
+    "start": "Jan 2025",
+    "end": "May 2025",
+    "tech": ["C#", "Machine Learning"],
+    "bullets": [
+      "Feed-forward neural network from scratch using sigmoid activation and gradient-descent training",
+      "Generated 1,000+ handwritten digit samples on a 16x16 grid for training; led the project and earned 100%"
+    ]
+  },
+  {
+    "id": "cryptopals",
+    "name": "CryptoPals",
+    "url": "https://github.com/DrChrisHax/CryptoPals",
+    "start": "Jan 2025",
+    "end": "Mar 2025",
+    "tech": ["C++", "Cryptography"],
+    "bullets": [
+      "Completed 17 of 66 CryptoPals cryptography challenges in C++; covers byte manipulation, XOR ciphers, frequency analysis, and block cipher modes",
+      "Introduced through Operating Systems class"
+    ]
+  },
+  {
+    "id": "huffman",
+    "name": "Huffman Coding Compression Tool",
+    "url": "https://github.com/DrChrisHax/HuffmanCodingCompressionTool",
+    "start": "Mar 2025",
+    "end": "Mar 2025",
+    "tech": ["Python", "Tkinter"],
+    "bullets": [
+      "File compression utility that builds a Huffman tree and encodes input files; GUI built with Tkinter",
+      "Built for Algorithm Engineering class; algorithm fully self-implemented"
+    ]
+  },
+  {
+    "id": "chris-shell",
+    "name": "Chris Shell",
+    "url": "https://github.com/DrChrisHax/ChrisShell",
+    "start": "Oct 2024",
+    "end": "Oct 2024",
+    "tech": ["C (gnu17)", "POSIX"],
+    "bullets": [
+      "Unix shell in C supporting piping, I/O redirection, and custom built-in commands; zero third-party libraries",
+      "Built for Operating Systems class; earned 100%"
+    ]
+  },
+  {
+    "id": "encrypto",
+    "name": "Encrypto",
+    "url": "https://github.com/DrChrisHax/encrypto",
+    "start": "Sep 2024",
+    "end": "Sep 2024",
+    "tech": ["C++20", "Cryptography"],
+    "bullets": [
+      "File encryption and decryption tool using keyed bit manipulation; built for Cybersecurity class",
+      "Earned over 100% on the assignment"
+    ]
+  },
+  {
+    "id": "card-games",
+    "name": "Card Games",
+    "url": "https://github.com/DrChrisHax/CardGames",
+    "start": "Jan 2023",
+    "end": "Feb 2023",
+    "tech": ["C++20", "SFML"],
+    "bullets": [
+      "Solitaire implementation in C++20 with SFML for graphics rendering",
+      "One of the projects that helped land my first professional software engineering role"
+    ]
+  },
+  {
+    "id": "hashing-algorithms",
+    "name": "Hashing Algorithms",
+    "url": "https://github.com/DrChrisHax/HashingAlgorithms",
+    "start": "Nov 2022",
+    "end": "May 2023",
+    "tech": ["C++17"],
+    "bullets": [
+      "Collection of hashing algorithms implemented from scratch in C++17, including SHA-256",
+      "One of the projects that helped land my first professional software engineering role"
+    ]
+  }
+]

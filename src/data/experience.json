@@ -1,0 +1,52 @@
+[
+  {
+    "id": "scalptrade",
+    "logoText": "ST",
+    "logoStyle": "scalp",
+    "company": "ScalpTrade",
+    "location": "Chicago, IL",
+    "role": "C++ Development Intern",
+    "start": "June 2026",
+    "end": "Present",
+    "bullets": [
+      "Rewriting a legacy C++11 market data processing service from scratch in C++20"
+    ]
+  },
+  {
+    "id": "jw-swe",
+    "logoText": "JW",
+    "logoStyle": "jw",
+    "company": "Judicate West",
+    "location": "Santa Ana, CA",
+    "role": "Software Engineer I",
+    "start": "June 2024",
+    "end": "May 2026",
+    "bullets": [
+      "Integrated the Zoom Meeting SDK into a WiseJ4 application for virtual ADR video sessions",
+      "Built a multi-threaded automation framework with Quartz.NET; deployed 3 production jobs eliminating recurring manual workflows",
+      "Developed RA MyWork, a task and time-tracking UI for Research Attorneys with a manager pay-approval queue",
+      "Built EDM data collection automation using the Fathom Analytics API for year-end website traffic reporting",
+      "Built Suggest Neutral with ChatGPT API integration for dynamic email generation and date-aware neutral scheduling",
+      "Built CRM Wins tracking system with dashboards for business development and case manager credit attribution",
+      "Developed mobile UI components for the MyJW client portal",
+      "Built AMI, an email capture and Ollama driven classification system; recovered 15%+ of inquiries previously missing from the case management system",
+      "Overhauled the Neutral Calendar CSS to support user-configurable per-event colors",
+      "Mentored 2 software engineering interns; conducted code reviews and approved pull requests",
+      "Shipped full-stack features in C#, VB.NET, and T-SQL serving 250+ concurrent users across web and mobile"
+    ]
+  },
+  {
+    "id": "jw-intern",
+    "logoText": "JW",
+    "logoStyle": "jw",
+    "company": "Judicate West",
+    "location": "Santa Ana, CA",
+    "role": "Software Development Intern",
+    "start": "May 2023",
+    "end": "June 2024",
+    "bullets": [
+      "Built EVA, a full-stack mobile event app in WiseJ with real-time scheduling and weather integration",
+      "Contributed to an ASP.NET website migration improving system performance and maintainability"
+    ]
+  }
+]

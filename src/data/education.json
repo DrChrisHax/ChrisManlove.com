@@ -1,0 +1,49 @@
+[
+  {
+    "id": "csuf",
+    "logoText": "CS",
+    "logoStyle": "csuf",
+    "school": "California State University, Fullerton",
+    "location": "Fullerton, CA",
+    "degree": "B.S. Computer Science",
+    "minor": "Mathematics",
+    "gpa": "3.75",
+    "start": "July 2024",
+    "end": "May 2026",
+    "coursework": [
+      "Algorithm Engineering",
+      "Operating Systems",
+      "Computer System Architecture",
+      "Compilers and Languages",
+      "Computer Networking",
+      "Network Security Fundamentals",
+      "Cybersecurity",
+      "Databases",
+      "Artificial Intelligence",
+      "Software Engineering",
+      "Mathematical Probability"
+    ]
+  },
+  {
+    "id": "occ",
+    "logoText": "OC",
+    "logoStyle": "occ",
+    "school": "Orange Coast College",
+    "location": "Costa Mesa, CA",
+    "degree": "A.S. Computer Science, A.S. Mathematics",
+    "minor": null,
+    "gpa": null,
+    "start": "June 2022",
+    "end": "May 2024",
+    "coursework": [
+      "C++ I and II",
+      "Data Structures and Algorithms",
+      "Computer Architecture",
+      "Discrete Structures",
+      "Software Engineering",
+      "Calculus I, II, III",
+      "Linear Algebra",
+      "Network Communication Technologies"
+    ]
+  }
+]

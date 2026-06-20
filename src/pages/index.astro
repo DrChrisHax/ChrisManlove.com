@@ -1,10 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import education from "../data/education.json";
+import experience from "../data/experience.json";
+import projects from "../data/projects.json";
+import skills from "../data/skills.json";
+import achievements from "../data/achievements.json";
 
 const title = "Chris Manlove | High-Performance C++ Systems Engineer";
 const description =
   "Chris Manlove is a high-performance C++ systems engineer specializing in low-level computing efficiency, systems programming, and high-throughput network design.";
 const url = "https://chrismanlove.com";
+
+function dateRange(start: string, end: string | null): string {
+  if (!end) return `${start} - Present`;
+  if (start === end) return start;
+  return `${start} - ${end}`;
+}
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -51,7 +62,6 @@ const jsonLd = {
     <meta name="keywords" content="Chris Manlove, Christopher Manlove, C++, C++20, C++23, Software Engineer, Data Structures, Algorithms, Computer Architecture, Operating Systems, Computer Networking, Network Programming, Object-Oriented Programming, Computer Science, Compilers, Backend Engineering, Low Latency, Concurrency, Multithreading, Lock-Free Programming, Cache Lines, Memory Management, NUMA, Performance Optimization, Cryptography, Quant, High Frequency Trading, Kernel Bypass" />
     <meta name="google-site-verification" content="tpjh_vr_KbK4cKP3c1Ix4_TYxXtyOdMgOcaB_fVCgW4" />
     <link rel="canonical" href={url} />
-
     <meta property="og:type" content="profile" />
     <meta property="og:url" content={url} />
     <meta property="og:title" content={title} />
@@ -61,111 +71,395 @@ const jsonLd = {
     <meta property="profile:first_name" content="Chris" />
     <meta property="profile:last_name" content="Manlove" />
     <meta property="profile:username" content="DrChrisHax" />
-
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
   </Fragment>
 
-  <h1>Chris Manlove</h1>
-  <h2>High-Performance C++ Systems Engineer</h2>
-
-  <section>
-    <p>
-      Chris Manlove (Christopher Manlove) is a C++ systems engineer focused on low-latency
-      networking, high-frequency trading infrastructure, performance optimization, and
-      post-quantum cryptography. Currently a C++ Development Intern at ScalpTrade rewriting
-      a market-data processing service in C++20, and holding a B.S. in Computer Science
-      (3.75 GPA) from California State University, Fullerton (May 2026).
+  <!-- Overview -->
+  <section id="overview" aria-label="Overview">
+    <h1>Chris Manlove</h1>
+    <p class="role-title">High-Performance C++ Systems Engineer</p>
+    <p class="location">Huntington Beach, CA</p>
+    <p class="intro">
+      Focused on writing efficient, low-latency, and scalable C++ systems. My work spans epoll
+      event loops, lock-free data structures, cache-aware memory layouts, and post-quantum
+      cryptography. I believe performance should be designed in from the start, not bolted on
+      at the end.
     </p>
   </section>
 
-  <section>
-    <h3>Core Expertise</h3>
-    <div class="skills">
-      <span class="skill">C++17 / 20 / 23</span>
-      <span class="skill">Data Structures</span>
-      <span class="skill">Algorithms</span>
-      <span class="skill">Operating Systems</span>
-      <span class="skill">Concurrency</span>
-      <span class="skill">Linux</span>
-      <span class="skill">GCC</span>
-    </div>
+  <!-- Education -->
+  <section id="education" aria-label="Education">
+    <h2 class="section-title">Education</h2>
+    {education.map((edu) => (
+      <article class="card">
+        <div class={`card-logo logo-${edu.logoStyle}`}>{edu.logoText}</div>
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3>{edu.school}</h3>
+              <p class="subtitle-text">
+                {edu.degree}{edu.minor ? `, Minor in ${edu.minor}` : ""}
+              </p>
+              <p class="meta-text">
+                {edu.location}{edu.gpa ? ` · GPA ${edu.gpa}` : ""}
+              </p>
+            </div>
+            <time class="date-badge">{dateRange(edu.start, edu.end)}</time>
+          </div>
+          <div class="tag-list">
+            {edu.coursework.map((course) => (
+              <span class="tag">{course}</span>
+            ))}
+          </div>
+        </div>
+      </article>
+    ))}
   </section>
 
-  <section>
-    <h3>Featured Projects</h3>
-    <div class="projects">
-      <div class="project">
-        <div class="project-title">
-          <a href="https://github.com/DrChrisHax/PostQuantumVPN" rel="noopener noreferrer">
-            Quantum Edge: Post-Quantum VPN
-          </a>
+  <!-- Experience -->
+  <section id="experience" aria-label="Experience">
+    <h2 class="section-title">Experience</h2>
+    {experience.map((job) => (
+      <article class="card">
+        <div class={`card-logo logo-${job.logoStyle}`}>{job.logoText}</div>
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3>{job.role}</h3>
+              <p class="subtitle-text">{job.company} · {job.location}</p>
+            </div>
+            <time class="date-badge">{dateRange(job.start, job.end)}</time>
+          </div>
+          <ul class="bullet-list">
+            {job.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
         </div>
-        <p class="project-desc">
-          C++23 VPN with a hybrid ML-KEM + X25519 handshake, epoll event loop, and throughput
-          competitive with WireGuard. Uses ChaCha20-Poly1305, BLAKE3, and HKDF via OpenSSL.
-        </p>
-      </div>
-      <div class="project">
-        <div class="project-title">
-          <a href="https://github.com/DrChrisHax/Proxy_Server" rel="noopener noreferrer">
-            SOCKS4 Proxy Server
-          </a>
-        </div>
-        <p class="project-desc">
-          An epoll-based event loop supporting 100,000+ concurrent connections.
-          Implements a custom LRU cache, DNS resolution, and SHA-256 with zero third-party dependencies.
-        </p>
-      </div>
-    </div>
+      </article>
+    ))}
   </section>
 
-  <section>
-    <h3>Links</h3>
-    <nav class="links" aria-label="External profiles">
-      <a href="https://github.com/DrChrisHax" rel="noopener noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/chris-manlove-b26b31209/" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:cmanlove1234@outlook.com">Email</a>
-    </nav>
+  <!-- Projects -->
+  <section id="projects" aria-label="Projects">
+    <h2 class="section-title">Projects</h2>
+    {projects.map((proj) => (
+      <article class="card proj-card">
+        <div class="proj-header">
+          <div>
+            <h3>
+              <a href={proj.url} rel="noopener noreferrer">{proj.name}</a>
+            </h3>
+            <div class="tech-list">
+              {proj.tech.map((t) => (
+                <span class="tech">{t}</span>
+              ))}
+            </div>
+          </div>
+          <time class="date-badge">{dateRange(proj.start, proj.end)}</time>
+        </div>
+        <ul class="bullet-list">
+          {proj.bullets.map((bullet) => (
+            <li>{bullet}</li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" aria-label="Skills">
+    <h2 class="section-title">Skills</h2>
+    {skills.map((group) => (
+      <div class="skill-group">
+        <h3 class="skill-category">{group.category}</h3>
+        <div class="skill-list">
+          {group.items.map((item) => (
+            <span class="skill">{item}</span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <!-- Achievements -->
+  <section id="achievements" aria-label="Awards and Achievements">
+    <h2 class="section-title">Awards and Achievements</h2>
+    {achievements.map((ach) => (
+      <div class="ach-row">
+        <div class="ach-info">
+          <span class="ach-name">{ach.name}</span>
+          {ach.issuer && <span class="ach-issuer">{ach.issuer}</span>}
+        </div>
+        {ach.date && <time class="date-badge">{ach.date}</time>}
+      </div>
+    ))}
   </section>
 </BaseLayout>
 
 <style>
-  h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
-  h2 { font-size: 1.1rem; font-weight: 400; color: #aaa; margin-top: 0.4rem; margin-bottom: 2rem; }
-  h3 { font-size: 1rem; font-weight: 600; color: #ccc; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+  /* Overview */
+  h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 0.2rem;
+  }
 
-  p { color: #ccc; margin-bottom: 1.5rem; }
+  .role-title {
+    font-size: 1.05rem;
+    color: #22c55e;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
 
-  section { margin-bottom: 2.5rem; }
+  .location {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 1.25rem;
+  }
 
-  .skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .intro {
+    font-size: 0.975rem;
+    color: #d1d5db;
+    line-height: 1.75;
+    max-width: 620px;
+  }
+
+  /* Sections */
+  section { margin-bottom: 4rem; }
+  #overview { margin-bottom: 3rem; }
+
+  .section-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #22c55e;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid #1a1a1a;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Cards */
+  .card {
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.85rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    transition: border-color 0.15s;
+  }
+
+  .card:hover { border-color: #2d2d2d; }
+
+  .card-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .logo-csuf  { background: #052e16; color: #4ade80; border: 1px solid #14532d; }
+  .logo-occ   { background: #042f2e; color: #5eead4; border: 1px solid #134e4a; }
+  .logo-scalp { background: #1e1b4b; color: #c084fc; border: 1px solid #312e81; }
+  .logo-jw    { background: #2d1b69; color: #a78bfa; border: 1px solid #4c1d95; }
+
+  .card-body { flex: 1; min-width: 0; }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-title-group h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f9fafb;
+    margin-bottom: 0.15rem;
+  }
+
+  .subtitle-text {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 0.1rem;
+  }
+
+  .meta-text {
+    font-size: 0.78rem;
+    color: #6b7280;
+  }
+
+  /* Date badges (purple) */
+  .date-badge {
+    font-size: 0.72rem;
+    color: #c084fc;
+    background: #1e1b4b;
+    border: 1px solid #4c1d95;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Coursework tags */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    background: #052e16;
+    border: 1px solid #14532d;
+    border-radius: 4px;
+    padding: 0.15rem 0.5rem;
+    color: #86efac;
+  }
+
+  /* Bullet lists */
+  .bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+  }
+
+  .bullet-list li {
+    font-size: 0.875rem;
+    color: #d1d5db;
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .bullet-list li::before {
+    content: '-';
+    position: absolute;
+    left: 0;
+    color: #22c55e;
+    font-weight: 600;
+  }
+
+  /* Projects */
+  .proj-card {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .proj-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .proj-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .proj-header h3 a {
+    color: #f9fafb;
+    text-decoration: none;
+  }
+
+  .proj-header h3 a:hover { color: #60a5fa; }
+
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  /* Tech tags (purple) */
+  .tech {
+    font-size: 0.68rem;
+    background: #1e1b4b;
+    border: 1px solid #312e81;
+    border-radius: 4px;
+    padding: 0.1rem 0.45rem;
+    color: #c084fc;
+  }
+
+  /* Skills */
+  .skill-group { margin-bottom: 1.5rem; }
+
+  .skill-category {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4b5563;
+    margin-bottom: 0.55rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
 
   .skill {
-    background: #111;
-    border: 1px solid #333;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    font-size: 0.875rem;
-    color: #ccc;
+    font-size: 0.8rem;
+    background: #0d1a0d;
+    border: 1px solid #14532d;
+    border-radius: 6px;
+    padding: 0.25rem 0.65rem;
+    color: #d1d5db;
   }
 
-  .projects { display: flex; flex-direction: column; gap: 1rem; }
-
-  .project {
-    border: 1px solid #222;
+  /* Achievements */
+  .ach-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
     border-radius: 8px;
-    padding: 1rem 1.25rem;
+    margin-bottom: 0.6rem;
+    transition: border-color 0.15s;
   }
 
-  .project-title { font-weight: 600; margin-bottom: 0.25rem; }
-  .project-desc { font-size: 0.9rem; color: #aaa; margin: 0; }
+  .ach-row:hover { border-color: #2d2d2d; }
 
-  a { color: #7eb8f7; text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  .ach-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
 
-  .links { display: flex; gap: 1.5rem; }
+  .ach-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #f9fafb;
+  }
+
+  .ach-issuer {
+    font-size: 0.78rem;
+    color: #6b7280;
+  }
 </style>

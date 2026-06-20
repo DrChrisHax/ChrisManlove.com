@@ -1,0 +1,26 @@
+[
+  {
+    "id": "security-plus",
+    "name": "CompTIA Security+",
+    "issuer": "CompTIA",
+    "date": "Aug 2025"
+  },
+  {
+    "id": "network-plus",
+    "name": "CompTIA Network+",
+    "issuer": "CompTIA",
+    "date": "Jan 2023"
+  },
+  {
+    "id": "eagle-scout",
+    "name": "Eagle Scout",
+    "issuer": "Boy Scouts of America",
+    "date": "Nov 2019"
+  },
+  {
+    "id": "chess",
+    "name": "United States Chess Federation 1650 ELO",
+    "issuer": "USCF",
+    "date": null
+  }
+]

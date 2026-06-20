@@ -1,0 +1,66 @@
+[
+  {
+    "category": "Languages",
+    "items": ["C++23", "C++20", "C++17", "C", "C#", "VB.NET", "T-SQL"]
+  },
+  {
+    "category": "Systems Programming",
+    "items": [
+      "Low Latency",
+      "POSIX Sockets",
+      "epoll",
+      "Non-Blocking I/O",
+      "Multithreading",
+      "Concurrency",
+      "Lock-Free Programming",
+      "Memory Management",
+      "Cache Lines",
+      "NUMA",
+      "Kernel Bypass",
+      "Performance Optimization"
+    ]
+  },
+  {
+    "category": "Computer Science",
+    "items": [
+      "Data Structures",
+      "Algorithms",
+      "Computer Architecture",
+      "Operating Systems",
+      "Compilers",
+      "Computer Networking",
+      "Network Programming",
+      "Object-Oriented Programming",
+      "Cryptography"
+    ]
+  },
+  {
+    "category": "Domain Knowledge",
+    "items": [
+      "High Frequency Trading",
+      "Quant Finance",
+      "Backend Engineering",
+      "Linear Algebra",
+      "Statistics",
+      "Probability",
+      "Combinatorics"
+    ]
+  },
+  {
+    "category": "Tools and Toolchain",
+    "items": [
+      "GCC",
+      "Make",
+      "Git",
+      "Linux",
+      "OpenSSL",
+      "Visual Studio Code",
+      "Visual Studio",
+      ".NET Framework",
+      "Quartz.NET",
+      "ASP.NET",
+      "SFML",
+      "MS SQL Server"
+    ]
+  }
+]
