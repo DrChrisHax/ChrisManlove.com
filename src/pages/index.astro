@@ -147,25 +147,27 @@ const jsonLd = {
   <section id="projects" aria-label="Projects">
     <h2 class="section-title">Projects</h2>
     {projects.map((proj) => (
-      <article class="card proj-card">
-        <div class="proj-header">
-          <div>
-            <h3>
-              <a href={proj.url} rel="noopener noreferrer">{proj.name}</a>
-            </h3>
-            <div class="tech-list">
-              {proj.tech.map((t) => (
-                <span class="tech">{t}</span>
-              ))}
+      <article class="card">
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3 class="proj-title">
+                <a href={proj.url} rel="noopener noreferrer">{proj.name}</a>
+              </h3>
+              <div class="tech-list">
+                {proj.tech.map((t) => (
+                  <span class="tech">{t}</span>
+                ))}
+              </div>
             </div>
+            <time class="date-badge">{dateRange(proj.start, proj.end)}</time>
           </div>
-          <time class="date-badge">{dateRange(proj.start, proj.end)}</time>
+          <ul class="bullet-list">
+            {proj.bullets.map((bullet) => (
+              <li>{bullet}</li>
+            ))}
+          </ul>
         </div>
-        <ul class="bullet-list">
-          {proj.bullets.map((bullet) => (
-            <li>{bullet}</li>
-          ))}
-        </ul>
       </article>
     ))}
   </section>
@@ -310,8 +312,8 @@ const jsonLd = {
   .date-badge {
     font-size: 0.72rem;
     color: #c084fc;
-    background: #1e1b4b;
-    border: 1px solid #4c1d95;
+    background: #1a0930;
+    border: 1px solid #6b21a8;
     border-radius: 999px;
     padding: 0.2rem 0.65rem;
     white-space: nowrap;
@@ -328,11 +330,11 @@ const jsonLd = {
 
   .tag {
     font-size: 0.72rem;
-    background: #052e16;
-    border: 1px solid #14532d;
+    background: #042214;
+    border: 1px solid #15803d;
     border-radius: 4px;
     padding: 0.15rem 0.5rem;
-    color: #86efac;
+    color: #4ade80;
   }
 
   /* Bullet lists */
@@ -361,31 +363,14 @@ const jsonLd = {
   }
 
   /* Projects */
-  .proj-card {
-    flex-direction: column;
-    gap: 0.65rem;
-  }
+  .proj-title { margin-bottom: 0.3rem; }
 
-  .proj-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .proj-header h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.3rem;
-  }
-
-  .proj-header h3 a {
+  .proj-title a {
     color: #f9fafb;
     text-decoration: none;
   }
 
-  .proj-header h3 a:hover { color: #60a5fa; }
+  .proj-title a:hover { color: #60a5fa; }
 
   .tech-list {
     display: flex;
@@ -393,14 +378,14 @@ const jsonLd = {
     gap: 0.3rem;
   }
 
-  /* Tech tags (purple) */
+  /* Tech tags (green) */
   .tech {
     font-size: 0.68rem;
-    background: #1e1b4b;
-    border: 1px solid #312e81;
+    background: #042214;
+    border: 1px solid #15803d;
     border-radius: 4px;
     padding: 0.1rem 0.45rem;
-    color: #c084fc;
+    color: #4ade80;
   }
 
   /* Skills */

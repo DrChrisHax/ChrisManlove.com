@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+posts.sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime());
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout title="Blog | Chris Manlove">
+  <h1>Blog</h1>
+  {posts.length === 0 && <p class="empty">No posts yet.</p>}
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li class="post-item">
+        <a href={`/blog/${post.id}`} class="post-link">{post.data.title}</a>
+        <time class="post-date">{formatDate(post.data.createdAt)}</time>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 2rem;
+    color: #f9fafb;
+  }
+
+  .empty {
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .post-item {
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 8px;
+    transition: border-color 0.15s;
+  }
+
+  .post-item:hover { border-color: #2d2d2d; }
+
+  .post-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #f9fafb;
+    text-decoration: none;
+  }
+
+  .post-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .post-item:hover .post-link { color: #60a5fa; }
+
+  .post-date {
+    font-size: 0.75rem;
+    color: #c084fc;
+    background: #1a0930;
+    border: 1px solid #6b21a8;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>

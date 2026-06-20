@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props { post: CollectionEntry<'blog'>; }
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const createdAt = post.data.createdAt;
+const updatedAt = post.data.updatedAt;
+const showUpdated = updatedAt && updatedAt.toDateString() !== createdAt.toDateString();
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout title={`${post.data.title} | Chris Manlove`}>
+  <article>
+    <header class="post-header">
+      <h1>{post.data.title}</h1>
+      <div class="post-meta">
+        <span class="author">{post.data.author}</span>
+        <span class="separator">·</span>
+        <time datetime={createdAt.toISOString()}>Created {formatDate(createdAt)}</time>
+        {showUpdated && (
+          <>
+            <span class="separator">·</span>
+            <time datetime={updatedAt!.toISOString()}>Updated {formatDate(updatedAt!)}</time>
+          </>
+        )}
+      </div>
+    </header>
+    <div class="post-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  article { max-width: 680px; }
+
+  .post-header { margin-bottom: 2.5rem; }
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #f9fafb;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+    flex-wrap: wrap;
+  }
+
+  .author    { color: #9ca3af; }
+  .separator { color: #374151; }
+
+  .post-content {
+    color: #d1d5db;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  .post-content :global(h2) {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #f9fafb;
+    margin: 2rem 0 0.75rem;
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .post-content :global(p)  { margin-bottom: 1.25rem; }
+  .post-content :global(li) { margin-bottom: 0.35rem; }
+
+  .post-content :global(a)       { color: #60a5fa; }
+  .post-content :global(a:hover) { text-decoration: underline; }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .post-content :global(code) {
+    font-family: monospace;
+    font-size: 0.875em;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    color: #22c55e;
+  }
+
+  .post-content :global(pre) {
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 8px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+  }
+
+  .post-content :global(pre code) {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+  }
+
+  .post-content :global(blockquote) {
+    border-left: 3px solid #22c55e;
+    padding-left: 1rem;
+    margin: 1.25rem 0;
+    color: #9ca3af;
+    font-style: italic;
+  }
+</style>
