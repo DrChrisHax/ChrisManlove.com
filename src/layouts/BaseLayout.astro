@@ -1,0 +1,171 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Chris Manlove | High-Performance C++ Systems Engineer",
+  description = "Chris Manlove is a high-performance C++ systems engineer specializing in low-level computing efficiency, systems programming, and high-throughput network design.",
+} = Astro.props;
+
+const path = Astro.url.pathname;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <slot name="head" />
+
+    <style is:global>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: #000;
+        color: #fff;
+        font-family: system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+    </style>
+
+    <style>
+      /* Header Nav */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: #000;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 0 1.5rem;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 800px;
+        margin: 0 auto;
+        height: 3.5rem;
+      }
+
+      .nav-brand {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: -0.3px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.75rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: #666;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.15s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: #fff;
+      }
+
+      /* Main */
+      main {
+        flex: 1;
+        padding: 3rem 1.5rem;
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid #1a1a1a;
+        padding: 2rem 1.5rem;
+      }
+
+      .footer-inner {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .footer-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: #fff;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: #666;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: color 0.15s;
+      }
+
+      .footer-links a:hover {
+        color: #fff;
+      }
+
+      .footer-copy {
+        font-size: 0.72rem;
+        color: #333;
+        margin-top: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/" class="nav-brand">Chris Manlove</a>
+        <ul class="nav-links">
+          <li>
+            <a href="/" aria-current={path === "/" ? "page" : undefined}>Home</a>
+          </li>
+          <li>
+            <a href="/blog" aria-current={path.startsWith("/blog") ? "page" : undefined}>Blog</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-name">Chris Manlove</div>
+        <div class="footer-links">
+          <a href="mailto:cmanlove1234@outlook.com">cmanlove1234@outlook.com</a>
+          <a href="https://www.linkedin.com/in/chris-manlove-b26b31209/" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/DrChrisHax" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <div class="footer-copy">&copy; 2026 Chris Manlove</div>
+      </div>
+    </footer>
+  </body>
+</html>
