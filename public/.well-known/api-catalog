@@ -1,0 +1,21 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://chrismanlove.com",
+      "describedby": [
+        {
+          "href": "https://chrismanlove.com/sitemap-index.xml",
+          "type": "application/xml",
+          "title": "XML Sitemap"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://chrismanlove.com",
+          "type": "text/html",
+          "title": "Chris Manlove Portfolio"
+        }
+      ]
+    }
+  ]
+}

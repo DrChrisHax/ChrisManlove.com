@@ -1,0 +1,12 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "skills": [
+    {
+      "name": "webmcp-portfolio-tools",
+      "type": "webmcp",
+      "description": "Exposes portfolio data (projects, skills, experience, contact) to AI agents via the WebMCP browser API on every page.",
+      "url": "https://chrismanlove.com/.well-known/agent-skills/webmcp/SKILL.md",
+      "sha256": "fa7e9cc387583c773a589b8d87adecec521026ae101bc787be0f894589a60e31"
+    }
+  ]
+}
