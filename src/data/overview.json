@@ -1,0 +1,6 @@
+{
+  "name": "Chris Manlove",
+  "roleTitle": "High-Performance C++ Systems Engineer",
+  "location": "Chicago, IL & Huntington Beach, CA",
+  "intro": "My focused is writing efficient, low-latency, and scalable C++ systems. My work spans epoll event loops, lock-free data structures, cache-aware memory layouts, and post-quantum cryptography. I believe performance should be designed in from the start, not bolted on at the end."
+}

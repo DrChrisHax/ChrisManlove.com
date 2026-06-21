@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import overview from "../data/overview.json";
 import education from "../data/education.json";
 import experience from "../data/experience.json";
 import projects from "../data/projects.json";
@@ -79,15 +80,10 @@ const jsonLd = {
 
   <!-- Overview -->
   <section id="overview" aria-label="Overview">
-    <h1>Chris Manlove</h1>
-    <p class="role-title">High-Performance C++ Systems Engineer</p>
-    <p class="location">Huntington Beach, CA</p>
-    <p class="intro">
-      Focused on writing efficient, low-latency, and scalable C++ systems. My work spans epoll
-      event loops, lock-free data structures, cache-aware memory layouts, and post-quantum
-      cryptography. I believe performance should be designed in from the start, not bolted on
-      at the end.
-    </p>
+    <h1>{overview.name}</h1>
+    <p class="role-title">{overview.roleTitle}</p>
+    <p class="location">{overview.location}</p>
+    <p class="intro">{overview.intro}</p>
   </section>
 
   <!-- Education -->
