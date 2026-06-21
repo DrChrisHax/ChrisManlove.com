@@ -1,4 +1,8 @@
 ---
+import projectsData from '../data/projects.json';
+import skillsData from '../data/skills.json';
+import experienceData from '../data/experience.json';
+
 interface Props {
   title?: string;
   description?: string;
@@ -167,5 +171,44 @@ const path = Astro.url.pathname;
         <div class="footer-copy">&copy; 2026 Chris Manlove</div>
       </div>
     </footer>
+    <script define:vars={{ projectsData, skillsData, experienceData }}>
+      if ('modelContext' in navigator) {
+        navigator.modelContext.provideContext({
+          tools: [
+            {
+              name: 'get_about',
+              description: 'Returns professional summary and contact information for Chris Manlove, a high-performance C++ systems engineer.',
+              inputSchema: { type: 'object', properties: {} },
+              execute: async () => ({
+                name: 'Chris Manlove',
+                title: 'High-Performance C++ Systems Engineer',
+                specializations: ['Low-level computing efficiency', 'Systems programming', 'High-throughput network design'],
+                email: 'cmanlove1234@outlook.com',
+                github: 'https://github.com/DrChrisHax',
+                linkedin: 'https://www.linkedin.com/in/chris-manlove-b26b31209/',
+              }),
+            },
+            {
+              name: 'list_projects',
+              description: 'Returns all portfolio projects with names, tech stacks, GitHub URLs, and descriptions.',
+              inputSchema: { type: 'object', properties: {} },
+              execute: async () => projectsData,
+            },
+            {
+              name: 'get_skills',
+              description: 'Returns technical skills grouped by category (Languages, Systems Programming, Computer Science, Domain Knowledge, Tools).',
+              inputSchema: { type: 'object', properties: {} },
+              execute: async () => skillsData,
+            },
+            {
+              name: 'list_experience',
+              description: 'Returns professional work experience and internships in reverse chronological order.',
+              inputSchema: { type: 'object', properties: {} },
+              execute: async () => experienceData,
+            },
+          ],
+        });
+      }
+    </script>
   </body>
 </html>
