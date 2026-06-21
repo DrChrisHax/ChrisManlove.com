@@ -1,2 +1,5 @@
 /*
   Link: </sitemap-index.xml>; rel="sitemap", <https://chrismanlove.com>; rel="author"
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json
