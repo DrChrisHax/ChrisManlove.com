@@ -3,3 +3,6 @@
 
 /.well-known/api-catalog
   Content-Type: application/linkset+json
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json
