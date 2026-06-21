@@ -1,8 +1,11 @@
 /*
-  Link: </sitemap-index.xml>; rel="sitemap", <https://chrismanlove.com>; rel="author"
+  Link: </sitemap-index.xml>; rel="sitemap", <https://chrismanlove.com>; rel="author", </.well-known/api-catalog>; rel="api-catalog"
 
 /.well-known/api-catalog
   Content-Type: application/linkset+json
 
 /.well-known/agent-skills/index.json
   Content-Type: application/json
+
+/.well-known/agent-skills/webmcp/SKILL.md
+  Content-Type: text/markdown
