@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # vscode config files
 .vscode/
+
+# local docs (not for version control)
+docs/
