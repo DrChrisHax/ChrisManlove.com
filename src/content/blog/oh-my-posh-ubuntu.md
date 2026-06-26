@@ -2,7 +2,7 @@
 title: "Setting Up oh-my-posh on Ubuntu Linux"
 author: "Chris Manlove"
 createdAt: 2026-06-23
-updatedAt: 2026-06-25
+updatedAt: 2026-06-26
 ---
 
 ## Introduction
@@ -14,6 +14,7 @@ While working at JudicateWest, one of my coworkers introduced me to oh-my-posh. 
 1.  First thing first, you want to open a terminal and run the command
 
 ```
+mkdir -p ~/.local/bin
 curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
 ```
 
@@ -33,11 +34,7 @@ After all this you can run `oh-my-posh --version` to make sure that oh-my-posh w
 
 4a. Now that the font is installed, you need to tell your terminal to actually use it. On Ubuntu with the GNOME desktop environment, the default terminal is **GNOME Terminal**. Open it and go to **Edit --> Preferences**. Under the **Profiles** tab, select your active profile (usually "Unnamed") and check **Custom font**. Click the font button next to it, search for **Hack Nerd Font Mono**, and select it. Click **Close** and your terminal will now render oh-my-posh symbols correctly.
 
-4b. I work with VS Code's integrated terminal and the font needs to be set there separately. If you haven't installed VS Code yet, you can install it via apt by first adding the Microsoft package repository:
-
-```bash
-WORK IN PROGRESS
-```
+4b. I work with VS Code's integrated terminal and the font needs to be set there separately. If you haven't installed VS Code yet, check out the [official install instructions](https://code.visualstudio.com/docs/setup/linux).
 
 Once VS Code is open, go to **File --> Preferences --> Settings** (or press `Ctrl+,`) and search for **Terminal Font Family**. In the **Terminal --> Integrated: Font Family** field, enter:
 
@@ -47,18 +44,34 @@ Once VS Code is open, go to **File --> Preferences --> Settings** (or press `Ctr
 
 The quotes are important as VS Code expects font family names in CSS format. After saving, open a new integrated terminal with `Ctrl+`` ` and oh-my-posh should render properly.
 
+5. Now you can activate oh-my-posh. Run the following command to add the initialization line to your `.bashrc` and apply it immediately:
+
+```bash
+echo 'eval "$(oh-my-posh init bash)"' >> ~/.bashrc && source ~/.bashrc
+```
+
+This will start oh-my-posh with the default theme. To use a specific theme, see the next section.
+
 ## My Config
+
+You can download my config [here](/hft.omp.json). Once downloaded, move it to the oh-my-posh themes directory with:
+
+```bash
+mv ~/Downloads/hft.omp.json ~/.cache/oh-my-posh/themes/
+```
+
+Then run the following command to add it to your `.bashrc` and apply it immediately:
+
+```bash
+echo 'eval "$(oh-my-posh init bash --config ~/.cache/oh-my-posh/themes/hft.omp.json)"' >> ~/.bashrc && source ~/.bashrc
+```
 
 After dialing in my config, here's what the final prompt looks like:
 
-<img src="./images/oh-my-posh-ubuntu/oh-my-posh-theme.png" alt="oh-my-posh theme config" style="max-width: 100%; height: auto;" />
+![oh-my-posh theme config](./images/oh-my-posh-ubuntu/oh-my-posh-theme.png)
 
 > To generate this image yourself, run:
 >
 > ```bash
 > oh-my-posh config export image --output oh-my-posh-theme.png
 > ```
-
-## Configuration Breakdown
-
-## Tips
