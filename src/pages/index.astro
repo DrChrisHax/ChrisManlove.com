@@ -59,6 +59,7 @@ const jsonLd = {
   sameAs: [
     "https://www.linkedin.com/in/chris-manlove-b26b31209/",
     "https://github.com/DrChrisHax",
+    "https://x.com/DrChrisHax",
   ],
 };
 ---
@@ -79,6 +80,8 @@ const jsonLd = {
     <meta property="profile:last_name" content="Manlove" />
     <meta property="profile:username" content="DrChrisHax" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@DrChrisHax" />
+    <meta name="twitter:creator" content="@DrChrisHax" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
