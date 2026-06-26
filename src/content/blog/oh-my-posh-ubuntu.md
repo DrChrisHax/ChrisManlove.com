@@ -13,7 +13,7 @@ While working at JudicateWest, one of my coworkers introduced me to oh-my-posh. 
 
 1.  First thing first, you want to open a terminal and run the command
 
-```
+```bash
 mkdir -p ~/.local/bin
 curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
 ```
@@ -22,7 +22,7 @@ This will run the oh-my-posh installation script and install the program to ~/.l
 
 2.  Next you will need to add the oh-my-posh binary to the path so that you can run the program as a command. This can be done with
 
-```
+```bash
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
@@ -32,19 +32,13 @@ After all this you can run `oh-my-posh --version` to make sure that oh-my-posh w
 
 3.  Next up, you will need a nerd font for oh-my-posh to display some of its symbols properly. I personally use **Hack Nerd Font Mono** but you can choose any font you want. The easiest way to install fonts is to run `oh-my-posh font install`. This will show a list of fonts oh-my-posh recommends. Using the arrow keys, select Hack and press enter to install it. This will give Hack Nerd Font, Hack Nerd Font Mono, and Hack Nerd Font Propo.
 
-4a. Now that the font is installed, you need to tell your terminal to actually use it. On Ubuntu with the GNOME desktop environment, the default terminal is **GNOME Terminal**. Open it and go to **Edit --> Preferences**. Under the **Profiles** tab, select your active profile (usually "Unnamed") and check **Custom font**. Click the font button next to it, search for **Hack Nerd Font Mono**, and select it. Click **Close** and your terminal will now render oh-my-posh symbols correctly.
+4.  Now that the font is installed, you need to tell your terminal to actually use it.
 
-4b. I work with VS Code's integrated terminal and the font needs to be set there separately. If you haven't installed VS Code yet, check out the [official install instructions](https://code.visualstudio.com/docs/setup/linux).
+    **GNOME Terminal:** On Ubuntu with the GNOME desktop environment, the default terminal is **GNOME Terminal**. Open it and go to **Edit --> Preferences**. Under the **Profiles** tab, select your active profile (usually "Unnamed") and check **Custom font**. Click the font button next to it, search for **Hack Nerd Font Mono**, and select it. Click **Close** and your terminal will now render oh-my-posh symbols correctly.
 
-Once VS Code is open, go to **File --> Preferences --> Settings** (or press `Ctrl+,`) and search for **Terminal Font Family**. In the **Terminal --> Integrated: Font Family** field, enter:
+    **VS Code:** I work with VS Code's integrated terminal and the font needs to be set there separately. If you haven't installed VS Code yet, check out the [official install instructions](https://code.visualstudio.com/docs/setup/linux). Once VS Code is open, go to **File --> Preferences --> Settings** (or press `Ctrl+,`) and search for **Terminal Font Family**. In the **Terminal --> Integrated: Font Family** field, enter `'Hack Nerd Font Mono'`. The quotes are important as VS Code expects font family names in CSS format. After saving, open a new integrated terminal with `Ctrl+` `` ` `` and oh-my-posh should render properly.
 
-```
-'Hack Nerd Font Mono'
-```
-
-The quotes are important as VS Code expects font family names in CSS format. After saving, open a new integrated terminal with `Ctrl+`` ` and oh-my-posh should render properly.
-
-5. Now you can activate oh-my-posh. Run the following command to add the initialization line to your `.bashrc` and apply it immediately:
+5.  Now you can activate oh-my-posh. Run the following command to add the initialization line to your `.bashrc` and apply it immediately:
 
 ```bash
 echo 'eval "$(oh-my-posh init bash)"' >> ~/.bashrc && source ~/.bashrc
