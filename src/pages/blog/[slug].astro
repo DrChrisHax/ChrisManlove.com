@@ -131,6 +131,18 @@ function formatDate(date: Date): string {
   .post-content :global(img) {
     max-width: 100%;
     height: auto;
+    display: block;
+  }
+
+  .post-content :global(p:has(img)) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .post-content :global(p:has(img) em) {
+    font-size: 0.8rem;
+    color: #6b7280;
   }
 
   .post-content :global(blockquote) {
