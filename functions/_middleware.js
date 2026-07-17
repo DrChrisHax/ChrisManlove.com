@@ -1,6 +1,8 @@
+import { canonicalDomain } from './middleware/canonicalDomain.js';
 import { markdownNegotiation } from './middleware/markdownNegotiation.js';
 
 const middlewares = [
+  canonicalDomain,
   markdownNegotiation,
 ];
 
