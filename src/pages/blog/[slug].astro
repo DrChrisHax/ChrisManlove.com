@@ -20,6 +20,8 @@ const showUpdated = updatedAt && updatedAt.toDateString() !== createdAt.toDateSt
 function formatDate(date: Date): string {
   return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
+const slug = post.id;
 ---
 
 <BaseLayout title={`${post.data.title} | Chris Manlove`}>
@@ -42,6 +44,12 @@ function formatDate(date: Date): string {
       <Content />
     </div>
   </article>
+
+  <section class="comments-section" aria-label="Comments">
+    <div id="comments-root">
+      <p class="comments-loading">Loading comments…</p>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -152,4 +160,491 @@ function formatDate(date: Date): string {
     color: #9ca3af;
     font-style: italic;
   }
+
+  /* ── Comment section ───────────────────────────────────────────────── */
+
+  .comments-section {
+    max-width: 680px;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #1e1e1e;
+  }
+
+  .comments-loading {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+
+  :global(.comments-header) {
+    margin-bottom: 1.5rem;
+  }
+
+  :global(.comments-title) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f9fafb;
+    margin: 0;
+  }
+
+  /* Login CTA */
+  :global(.comment-login-cta) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    background: #0a0a0a;
+    border: 1px dashed #2a2a2a;
+    border-radius: 6px;
+    color: #4b5563;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  :global(.comment-login-cta:hover) { border-color: #22c55e; color: #9ca3af; }
+  :global(.comment-login-cta-arrow) { font-size: 1rem; }
+
+  /* Buttons */
+  :global(.btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    text-decoration: none;
+    line-height: 1;
+    font-family: inherit;
+  }
+
+  :global(.btn-primary) {
+    background: #22c55e;
+    color: #000;
+    border-color: #22c55e;
+  }
+  :global(.btn-primary:hover:not(:disabled)) { background: #16a34a; border-color: #16a34a; }
+  :global(.btn-primary:disabled) { opacity: 0.5; cursor: not-allowed; }
+
+  :global(.btn-ghost) {
+    background: transparent;
+    color: #6b7280;
+    border-color: #2a2a2a;
+  }
+  :global(.btn-ghost:hover) { color: #d1d5db; border-color: #3f3f3f; }
+
+  :global(.btn-action) {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s;
+    font-family: inherit;
+  }
+  :global(.btn-action:hover) { color: #d1d5db; }
+  :global(.btn-action--danger:hover) { color: #ef4444; }
+
+  /* Top-level post form */
+  :global(.top-level-form) { margin-bottom: 2rem; }
+
+  /* Comment form */
+  :global(.comment-form) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  :global(.comment-textarea) {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 6px;
+    color: #d1d5db;
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.75rem;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.15s;
+  }
+  :global(.comment-textarea:focus) { outline: none; border-color: #22c55e; }
+
+  :global(.comment-form-actions) {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  :global(.form-error) { color: #ef4444; font-size: 0.8rem; }
+
+  /* Comment list */
+  :global(.comment-list) { display: flex; flex-direction: column; gap: 0; }
+
+  :global(.comments-empty) { color: #6b7280; font-size: 0.875rem; }
+
+  /* Individual comment */
+  :global(.comment) {
+    padding: 1rem 0;
+    border-bottom: 1px solid #111;
+  }
+
+  :global(.comment-children) {
+    margin-top: 0.75rem;
+    margin-left: 1.25rem;
+    padding-left: 1rem;
+    border-left: 2px solid #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  :global(.comment--reply) {
+    padding: 0.75rem 0 0;
+    border-bottom: none;
+  }
+
+  :global(.comment-header) {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  :global(.comment-author) {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #e5e7eb;
+  }
+
+  :global(.comment-meta) { font-size: 0.75rem; color: #6b7280; }
+
+  :global(.comment-body) {
+    font-size: 0.9rem;
+    color: #d1d5db;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.comment-body--deleted) { color: #4b5563; font-style: italic; }
+
+  :global(.comment-actions) { display: flex; gap: 0.85rem; align-items: center; }
+
+  :global(.reply-form-container),
+  :global(.edit-form-container) { margin-top: 0.75rem; }
 </style>
+
+<script define:vars={{ slug }}>
+  (async function () {
+    let currentUser = null;
+    let allComments = [];
+
+    // ── Fetch ─────────────────────────────────────────────────────────────
+
+    async function fetchComments() {
+      try {
+        const r = await fetch(`/api/comments/${slug}`);
+        return r.ok ? r.json() : [];
+      } catch { return []; }
+    }
+
+    async function apiPost(body, parentId) {
+      const r = await fetch(`/api/comments/${slug}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body, parent_id: parentId || null }),
+      });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Failed to post');
+      return r.json();
+    }
+
+    async function apiPut(id, body) {
+      const r = await fetch(`/api/comment/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ body }),
+      });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Failed to update');
+      return r.json();
+    }
+
+    async function apiDelete(id) {
+      const r = await fetch(`/api/comment/${id}`, { method: 'DELETE' });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || 'Failed to delete');
+    }
+
+    // ── Dates ─────────────────────────────────────────────────────────────
+
+    function fmt(iso) {
+      if (!iso) return '';
+      return new Date(iso.replace(' ', 'T') + 'Z').toLocaleDateString('en-US', {
+        year: 'numeric', month: 'short', day: 'numeric',
+        hour: 'numeric', minute: '2-digit',
+      });
+    }
+
+    // ── Tree ──────────────────────────────────────────────────────────────
+
+    function buildTree(flat) {
+      const map = {};
+      const roots = [];
+      for (const c of flat) map[c.id] = { ...c, children: [] };
+      for (const c of flat) {
+        if (c.parent_id && map[c.parent_id]) {
+          map[c.parent_id].children.push(map[c.id]);
+        } else {
+          roots.push(map[c.id]);
+        }
+      }
+      return roots;
+    }
+
+    // ── DOM helpers ───────────────────────────────────────────────────────
+
+    function el(tag, cls, text) {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+
+    function makeForm(placeholder, submitLabel, onSubmit, onCancel) {
+      const wrap = el('div', 'comment-form');
+      const textarea = el('textarea', 'comment-textarea');
+      textarea.placeholder = placeholder;
+      textarea.rows = 3;
+      const row = el('div', 'comment-form-actions');
+      const submitBtn = el('button', 'btn btn-primary', submitLabel);
+      submitBtn.type = 'button';
+      submitBtn.onclick = async () => {
+        const body = textarea.value.trim();
+        if (!body) return;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Posting…';
+        try {
+          await onSubmit(body);
+        } catch (err) {
+          row.appendChild(el('span', 'form-error', err.message));
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+      };
+      row.appendChild(submitBtn);
+      if (onCancel) {
+        const cancelBtn = el('button', 'btn btn-ghost', 'Cancel');
+        cancelBtn.type = 'button';
+        cancelBtn.onclick = onCancel;
+        row.appendChild(cancelBtn);
+      }
+      wrap.appendChild(textarea);
+      wrap.appendChild(row);
+      return { wrap, textarea };
+    }
+
+    // ── Refresh ───────────────────────────────────────────────────────────
+
+    async function refresh() {
+      allComments = await fetchComments();
+      renderAll();
+    }
+
+    // ── Render: root ──────────────────────────────────────────────────────
+
+    function renderAll() {
+      const root = document.getElementById('comments-root');
+      root.innerHTML = '';
+      root.appendChild(renderHeader());
+      if (currentUser) {
+        root.appendChild(renderTopForm());
+      } else {
+        root.appendChild(renderLoginCta());
+      }
+      root.appendChild(renderList());
+    }
+
+    // ── Render: header ────────────────────────────────────────────────────
+
+    function renderHeader() {
+      const header = el('div', 'comments-header');
+      header.appendChild(el('h2', 'comments-title',
+        `${allComments.length} Comment${allComments.length !== 1 ? 's' : ''}`));
+      return header;
+    }
+
+    // ── Render: login CTA (logged-out) ────────────────────────────────────
+
+    function renderLoginCta() {
+      const cta = el('div', 'comment-login-cta');
+      cta.setAttribute('role', 'button');
+      cta.setAttribute('tabindex', '0');
+      cta.appendChild(el('span', null, 'Sign in to leave a comment'));
+      cta.appendChild(el('span', 'comment-login-cta-arrow', '→'));
+      const open = () => typeof window.showLoginModal === 'function' && window.showLoginModal();
+      cta.onclick = open;
+      cta.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') open(); };
+      return cta;
+    }
+
+    // ── Render: top-level form ────────────────────────────────────────────
+
+    function renderTopForm() {
+      const { wrap } = makeForm(
+        'Write a comment…',
+        'Post comment',
+        async (body) => { await apiPost(body, null); await refresh(); }
+      );
+      wrap.classList.add('top-level-form');
+      return wrap;
+    }
+
+    // ── Render: comment list ──────────────────────────────────────────────
+
+    function renderList() {
+      const list = el('div', 'comment-list');
+      const tree = buildTree(allComments);
+      if (tree.length === 0) {
+        list.appendChild(el('p', 'comments-empty', 'No comments yet.'));
+        return list;
+      }
+      for (const node of tree) list.appendChild(renderNode(node, 0));
+      return list;
+    }
+
+    // ── Render: single comment node ───────────────────────────────────────
+
+    function renderNode(node, depth) {
+      const wrap = el('div', depth > 0 ? 'comment comment--reply' : 'comment');
+      wrap.id = `comment-${node.id}`;
+
+      const header = el('div', 'comment-header');
+      header.appendChild(el('span', 'comment-author',
+        node.deleted ? '[deleted]' : (node.display_name || 'Anonymous')));
+
+      const meta = el('span', 'comment-meta');
+      const ct = document.createElement('time');
+      ct.dateTime = node.created_at;
+      ct.textContent = fmt(node.created_at);
+      meta.appendChild(ct);
+
+      if (!node.deleted && node.updated_at && node.updated_at !== node.created_at) {
+        meta.appendChild(document.createTextNode(' · edited '));
+        const ut = document.createElement('time');
+        ut.dateTime = node.updated_at;
+        ut.textContent = fmt(node.updated_at);
+        meta.appendChild(ut);
+      }
+      header.appendChild(meta);
+      wrap.appendChild(header);
+
+      const bodyEl = el('div',
+        node.deleted ? 'comment-body comment-body--deleted' : 'comment-body',
+        node.deleted ? '[deleted]' : node.body);
+      wrap.appendChild(bodyEl);
+
+      const actions = el('div', 'comment-actions');
+      if (!node.deleted && currentUser) {
+        const replyBtn = el('button', 'btn-action', 'Reply');
+        replyBtn.onclick = () => toggleReply(node, actions);
+        actions.appendChild(replyBtn);
+
+        if (currentUser.id === node.user_id) {
+          const editBtn = el('button', 'btn-action', 'Edit');
+          editBtn.onclick = () => startEdit(node, bodyEl, actions);
+          actions.appendChild(editBtn);
+        }
+
+        if (currentUser.id === node.user_id || currentUser.isAdmin) {
+          const delBtn = el('button', 'btn-action btn-action--danger', 'Delete');
+          delBtn.onclick = async () => {
+            if (!window.confirm('Delete this comment? This cannot be undone.')) return;
+            try { await apiDelete(node.id); await refresh(); }
+            catch (err) { alert(err.message); }
+          };
+          actions.appendChild(delBtn);
+        }
+      }
+      wrap.appendChild(actions);
+
+      if (node.children && node.children.length > 0) {
+        const childWrap = el('div', 'comment-children');
+        for (const child of node.children) childWrap.appendChild(renderNode(child, depth + 1));
+        wrap.appendChild(childWrap);
+      }
+
+      return wrap;
+    }
+
+    // ── Reply toggle ──────────────────────────────────────────────────────
+
+    function toggleReply(node, actions) {
+      const existing = document.getElementById(`reply-form-${node.id}`);
+      if (existing) { existing.remove(); return; }
+
+      const container = el('div', 'reply-form-container');
+      container.id = `reply-form-${node.id}`;
+      const { wrap, textarea } = makeForm(
+        `Reply to ${node.display_name || 'comment'}…`,
+        'Post reply',
+        async (body) => { await apiPost(body, node.id); await refresh(); },
+        () => container.remove()
+      );
+      container.appendChild(wrap);
+      actions.insertAdjacentElement('afterend', container);
+      textarea.focus();
+    }
+
+    // ── Edit ──────────────────────────────────────────────────────────────
+
+    function startEdit(node, bodyEl, actions) {
+      if (document.getElementById(`edit-form-${node.id}`)) return;
+
+      const container = el('div', 'edit-form-container');
+      container.id = `edit-form-${node.id}`;
+
+      const textarea = el('textarea', 'comment-textarea');
+      textarea.rows = 4;
+      textarea.value = node.body;
+
+      const row = el('div', 'comment-form-actions');
+      const saveBtn = el('button', 'btn btn-primary', 'Save');
+      saveBtn.onclick = async () => {
+        const newBody = textarea.value.trim();
+        if (!newBody) return;
+        saveBtn.disabled = true;
+        saveBtn.textContent = 'Saving…';
+        try { await apiPut(node.id, newBody); await refresh(); }
+        catch (err) { saveBtn.disabled = false; saveBtn.textContent = 'Save'; alert(err.message); }
+      };
+      const cancelBtn = el('button', 'btn btn-ghost', 'Cancel');
+      cancelBtn.onclick = () => {
+        container.remove();
+        bodyEl.style.display = '';
+        actions.style.display = '';
+      };
+      row.appendChild(saveBtn);
+      row.appendChild(cancelBtn);
+      container.appendChild(textarea);
+      container.appendChild(row);
+
+      bodyEl.style.display = 'none';
+      actions.style.display = 'none';
+      bodyEl.insertAdjacentElement('beforebegin', container);
+      textarea.focus();
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────
+
+    [currentUser, allComments] = await Promise.all([
+      (window.__authPromise || Promise.resolve(null)),
+      fetchComments(),
+    ]);
+    renderAll();
+  })();
+</script>

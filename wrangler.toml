@@ -1,0 +1,8 @@
+name = "chrismanlove-portfolio"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "chrismanlove-db"
+database_id = "a440f050-d24e-4008-aeb9-ed97d0081b29"

@@ -1,0 +1,8 @@
+# Copy this file to .dev.vars and fill in real values for local development.
+# .dev.vars is gitignored and never committed.
+#
+# See docs/comments-auth-roadmap.md Phase 2 for setup instructions.
+
+GOOGLE_CLIENT_ID=your-google-client-id-here.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=GOCSPX-your-secret-here
+JWT_SECRET=replace-with-32-byte-random-hex-string
