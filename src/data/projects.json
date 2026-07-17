@@ -7,9 +7,21 @@
     "end": "May 2026",
     "tech": ["C++23", "Cryptography", "Linux Networking", "OpenSSL"],
     "bullets": [
-      "Led a 4-person team building a VPN with a hybrid ML-KEM + X25519 handshake and epoll event loop; throughput competitive with WireGuard",
-      "Composed a unified handshake pipeline from ML-KEM-768, X25519, ChaCha20-Poly1305, BLAKE3, and HKDF via OpenSSL",
-      "Authored a unit-test suite spanning crypto and networking layers to enable rapid iteration"
+      "Led a 4-person capstone team building a WireGuard-inspired VPN in C++23 with a hybrid post-quantum handshake (ML-KEM-768 + X25519); throughput competitive with WireGuard",
+      "Engineered the data plane on non-blocking UDP sockets, a Linux TUN device, and an epoll event loop; hardened sessions with atomic nonce counters, sliding-window replay protection, and secure key zeroing",
+      "Composed ChaCha20-Poly1305, BLAKE3, and HKDF via OpenSSL for handshake and transport crypto; authored a 30-module unit-test suite spanning crypto and networking layers"
+    ]
+  },
+  {
+    "id": "palmtree-chess-engine",
+    "name": "PalmTree Chess Engine",
+    "url": "https://github.com/cs-alberttran/PalmTreeEngine",
+    "start": "2026",
+    "end": null,
+    "tech": ["Python", "Game-Tree Search"],
+    "bullets": [
+      "Built a UCI-compliant chess engine on iterative-deepening negamax with principal variation search, null-move pruning, late-move reductions, check extensions, and quiescence search",
+      "Cut search cost with a transposition table and MVV-LVA + killer-move ordering; benchmarked tactical accuracy on tagged test suites (mate-in-N, forks, zugzwang) under time controls"
     ]
   },
   {

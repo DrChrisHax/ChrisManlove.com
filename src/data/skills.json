@@ -1,7 +1,7 @@
 [
   {
     "category": "Languages",
-    "items": ["C++23", "C++20", "C++17", "C", "C#", "VB.NET", "T-SQL"]
+    "items": ["C++23", "C++20", "C++17", "C", "Python", "C#", "VB.NET", "T-SQL", "JavaScript", "TypeScript"]
   },
   {
     "category": "Systems Programming",
@@ -12,9 +12,13 @@
       "Non-Blocking I/O",
       "Multithreading",
       "Concurrency",
+      "Atomics",
       "Lock-Free Programming",
       "Memory Management",
+      "Memory Pools",
+      "Shared Memory",
       "Cache Lines",
+      "Data-Oriented Design",
       "NUMA",
       "Kernel Bypass",
       "Performance Optimization"
@@ -43,7 +47,9 @@
       "Linear Algebra",
       "Statistics",
       "Probability",
-      "Combinatorics"
+      "Combinatorics",
+      "Numerical Methods",
+      "Algorithmic Complexity"
     ]
   },
   {
@@ -53,6 +59,8 @@
       "Make",
       "Git",
       "Linux",
+      "WSL",
+      "Valgrind",
       "OpenSSL",
       "Visual Studio Code",
       "Visual Studio",
