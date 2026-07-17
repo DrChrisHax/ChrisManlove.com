@@ -44,7 +44,7 @@ const path = Astro.url.pathname;
 
     <style is:global>
       /* ── Header / Nav ─────────────────────────────────────────────────── */
-      header {
+      .site-header {
         position: sticky;
         top: 0;
         z-index: 100;
@@ -53,7 +53,7 @@ const path = Astro.url.pathname;
         padding: 0 1.5rem;
       }
 
-      nav {
+      .site-header nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -293,7 +293,7 @@ const path = Astro.url.pathname;
     </style>
   </head>
   <body>
-    <header>
+    <header class="site-header">
       <nav>
         <a href="/" class="nav-brand">Chris Manlove</a>
         <div class="nav-right">
