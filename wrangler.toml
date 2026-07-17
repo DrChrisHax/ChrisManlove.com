@@ -1,7 +1,6 @@
 name = "chrismanlove-portfolio"
 compatibility_date = "2024-09-23"
 pages_build_output_dir = "dist"
-account_id = "2c8806214f459139d7893bcaf859a967"
 
 [[d1_databases]]
 binding = "DB"
