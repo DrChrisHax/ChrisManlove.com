@@ -199,7 +199,11 @@ const jsonLd = {
     {achievements.map((ach) => (
       <div class="ach-row">
         <div class="ach-info">
-          <span class="ach-name">{ach.name}</span>
+          {ach.url ? (
+            <a class="ach-name" href={ach.url} target="_blank" rel="noopener noreferrer">{ach.name}</a>
+          ) : (
+            <span class="ach-name">{ach.name}</span>
+          )}
           {ach.issuer && <span class="ach-issuer">{ach.issuer}</span>}
         </div>
         {ach.date && <time class="date-badge">{ach.date}</time>}
