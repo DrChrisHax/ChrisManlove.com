@@ -7,9 +7,11 @@
     "location": "Chicago, IL",
     "role": "C++ Development Intern",
     "start": "June 2026",
-    "end": "Present",
+    "end": "August 2026",
     "bullets": [
-      "Rewriting a legacy C++11 market data processing service from scratch in C++20"
+      "Modernizing a legacy exchange matching engine from pre-C++11 to C++20, decomposing a monolithic executor into order book, message-processing, session, and execution-reporting components",
+      "Designed and rewrote the order book: per-symbol bid/ask sides with paged price-level arrays over a central memory pool — a data-oriented, cache-friendly layout kept thread-safe with atomics and mutexes",
+      "Process the full FIX 4.2 order lifecycle, emitting an execution report for every book event"
     ]
   },
   {

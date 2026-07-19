@@ -8,7 +8,7 @@
     "degree": "B.S. Computer Science",
     "minor": "Mathematics",
     "gpa": "3.75",
-    "start": "July 2024",
+    "start": "August 2024",
     "end": "May 2026",
     "coursework": [
       "Algorithm Engineering",
@@ -21,7 +21,9 @@
       "Databases",
       "Artificial Intelligence",
       "Software Engineering",
-      "Mathematical Probability"
+      "Mathematical Probability",
+      "Statistics",
+      "Linear Algebra"
     ]
   },
   {
