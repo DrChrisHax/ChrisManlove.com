@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact | Chris Manlove" description="Get in touch with Chris Manlove.">
+  <h1>Contact Me</h1>
+  <p class="intro">Send a message and I'll get back to you.</p>
+
+  <div id="contact-root">
+    <p class="loading">Loading…</p>
+  </div>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+    color: #f9fafb;
+  }
+
+  .intro {
+    color: #9ca3af;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .loading { color: #6b7280; font-size: 0.9rem; }
+
+  :global(.contact-login-cta) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: #0a0a0a;
+    border: 1px dashed #2a2a2a;
+    border-radius: 6px;
+    color: #4b5563;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    max-width: 480px;
+  }
+  :global(.contact-login-cta:hover) { border-color: #22c55e; color: #9ca3af; }
+  :global(.contact-login-cta-arrow) { font-size: 1rem; }
+
+  :global(.contact-form) {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 560px;
+  }
+
+  :global(.contact-row) {
+    display: flex;
+    gap: 1rem;
+  }
+
+  :global(.contact-field) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  :global(.contact-label) {
+    font-size: 0.8rem;
+    color: #9ca3af;
+  }
+
+  :global(.contact-label .optional) {
+    color: #4b5563;
+    font-weight: 400;
+  }
+
+  :global(.contact-input),
+  :global(.contact-textarea) {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 6px;
+    color: #d1d5db;
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.65rem 0.75rem;
+    transition: border-color 0.15s;
+  }
+  :global(.contact-input:focus),
+  :global(.contact-textarea:focus) { outline: none; border-color: #22c55e; }
+
+  :global(.contact-textarea) {
+    resize: vertical;
+    min-height: 160px;
+    line-height: 1.5;
+  }
+
+  :global(.contact-file-input) {
+    color: #9ca3af;
+    font-size: 0.85rem;
+  }
+
+  :global(.contact-hint) {
+    font-size: 0.75rem;
+    color: #4b5563;
+  }
+
+  :global(.contact-actions) {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  :global(.contact-status) {
+    font-size: 0.85rem;
+  }
+  :global(.contact-status--error) { color: #ef4444; }
+  :global(.contact-status--success) { color: #22c55e; }
+
+  :global(.btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    text-decoration: none;
+    line-height: 1;
+    font-family: inherit;
+  }
+
+  :global(.btn-primary) {
+    background: #22c55e;
+    color: #000;
+    border-color: #22c55e;
+  }
+  :global(.btn-primary:hover:not(:disabled)) { background: #16a34a; border-color: #16a34a; }
+  :global(.btn-primary:disabled) { opacity: 0.5; cursor: not-allowed; }
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById('contact-root');
+
+    function el(tag, cls, text) {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text !== undefined) e.textContent = text;
+      return e;
+    }
+
+    function field(labelText, optional, input) {
+      const wrap = el('div', 'contact-field');
+      const label = el('label', 'contact-label');
+      label.textContent = labelText + ' ';
+      if (optional) label.appendChild(el('span', 'optional', '(optional)'));
+      const id = 'contact-' + labelText.toLowerCase().replace(/[^a-z]+/g, '-');
+      label.htmlFor = id;
+      input.id = id;
+      wrap.appendChild(label);
+      wrap.appendChild(input);
+      return wrap;
+    }
+
+    function renderLoginCta() {
+      const cta = el('div', 'contact-login-cta');
+      cta.setAttribute('role', 'button');
+      cta.setAttribute('tabindex', '0');
+      cta.appendChild(el('span', null, 'Sign in with Google to send a message'));
+      cta.appendChild(el('span', 'contact-login-cta-arrow', '→'));
+      const open = () => typeof window.showLoginModal === 'function' && window.showLoginModal();
+      cta.onclick = open;
+      cta.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') open(); };
+      return cta;
+    }
+
+    function renderForm(user) {
+      const form = el('form', 'contact-form');
+
+      const [firstGuess, ...restGuess] = (user.displayName || '').trim().split(/\s+/);
+      const lastGuess = restGuess.join(' ');
+
+      const firstInput = el('input', 'contact-input');
+      firstInput.type = 'text';
+      firstInput.name = 'firstName';
+      firstInput.value = firstGuess || '';
+
+      const lastInput = el('input', 'contact-input');
+      lastInput.type = 'text';
+      lastInput.name = 'lastName';
+      lastInput.value = lastGuess || '';
+
+      const nameRow = el('div', 'contact-row');
+      nameRow.appendChild(field('First name', true, firstInput));
+      nameRow.appendChild(field('Last name', true, lastInput));
+      form.appendChild(nameRow);
+
+      const emailInput = el('input', 'contact-input');
+      emailInput.type = 'email';
+      emailInput.name = 'email';
+      emailInput.required = true;
+      emailInput.value = user.email || '';
+      form.appendChild(field('Email', false, emailInput));
+
+      const phoneInput = el('input', 'contact-input');
+      phoneInput.type = 'tel';
+      phoneInput.name = 'phone';
+      form.appendChild(field('Phone', true, phoneInput));
+
+      const messageInput = el('textarea', 'contact-textarea');
+      messageInput.name = 'message';
+      messageInput.required = true;
+      messageInput.rows = 8;
+      messageInput.placeholder = 'Your message…';
+      form.appendChild(field('Message', false, messageInput));
+
+      const filesWrap = el('div', 'contact-field');
+      const filesLabel = el('label', 'contact-label', 'Attachments ');
+      filesLabel.appendChild(el('span', 'optional', '(optional)'));
+      const filesInput = el('input', 'contact-file-input');
+      filesInput.type = 'file';
+      filesInput.name = 'files';
+      filesInput.multiple = true;
+      filesWrap.appendChild(filesLabel);
+      filesWrap.appendChild(filesInput);
+      filesWrap.appendChild(el('span', 'contact-hint', 'Up to 3MB total.'));
+      form.appendChild(filesWrap);
+
+      const actions = el('div', 'contact-actions');
+      const submitBtn = el('button', 'btn btn-primary', 'Send message');
+      submitBtn.type = 'submit';
+      const status = el('span', 'contact-status');
+      actions.appendChild(submitBtn);
+      actions.appendChild(status);
+      form.appendChild(actions);
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = '';
+        status.className = 'contact-status';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            body: new FormData(form),
+          });
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({}));
+            throw new Error(data.error || 'Failed to send message');
+          }
+          form.reset();
+          status.textContent = "Thanks — I'll get back to you soon.";
+          status.className = 'contact-status contact-status--success';
+        } catch (err) {
+          status.textContent = err.message;
+          status.className = 'contact-status contact-status--error';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send message';
+        }
+      });
+
+      return form;
+    }
+
+    (window.__authPromise || Promise.resolve(null)).then((user) => {
+      root.innerHTML = '';
+      root.appendChild(user ? renderForm(user) : renderLoginCta());
+    });
+  })();
+</script>
